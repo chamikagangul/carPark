@@ -3,33 +3,39 @@ var mongoose = require('mongoose');
 
 mongoose.connect('mongodb+srv://chamika:123qwe@cluster0-yxcdg.mongodb.net/carPark?retryWrites=true&w=majority', { useNewUrlParser: true });
 
-var todoSchema = new mongoose.Schema({
+var bluePrint = new mongoose.Schema({
     slotNo: String,
-    status: String
+    status: String,
+    Name : String
 });
 
-var Todo = mongoose.model('slot', todoSchema);
+var CarPark = mongoose.model('slot', bluePrint);
 
 
 //var data = [{ item: 'get milk' }, { item: 'walk dog' }, { item: 'some coding' }]
 var urlEncodedParser = bodyPaser.urlencoded({ extended: false });
 
-var read = () => {
+var read = (search = {}) => {
     console.log("inside read");
-    Todo.find({}, function (err, data) {
+    CarPark.find(search, function (err, data) {
         if (err) throw err;
         console.log(data);
     });
 }
 
 var save = (DATA) => {
-    DATA = {1:2}
-    Todo(DATA).save(function (err, data) {
+    CarPark(DATA).save(function (err, data) {
         if (err) throw err;
         console.log("Saved");
     });
 }
-var del = null;
+
+var del = (slotNo) =>{
+    CarPark.find({id: slotNo.replace(/\-/g," ")}).remove(function(err,data){
+        if(err) throw err;
+        res.json(data);
+    });
+}
 
 module.exports.save = save;
 module.exports.read = read;

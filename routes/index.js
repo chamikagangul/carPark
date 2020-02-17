@@ -8,7 +8,11 @@ var db = require('../model/db');
 /* GET home page. */
 
 router.get('/', function (req, res, next) {
-  db.save({});
+  db.save({
+    slotNo: "1",
+    status: "Free",
+    Name : "Chamika"
+  });
   res.render('index', { title: 'Express' });
 });
 
