@@ -1,8 +1,8 @@
 exports.chat = function (io) {
-  io.on('connection', function (socket) {
-    console.log('a user connected - io connection');
-    socket.on('update',(msg)=>{
+  io.on('connection', function(socket){
+    socket.on('io-update', function(msg){
       console.log(msg);
-    })
+      io.emit('io-update-page', "update the page");
+    });
   });
 }

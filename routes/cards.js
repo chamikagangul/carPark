@@ -11,15 +11,27 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/save', function (req, res, next) {
-
-    db.save({
-        slotNo: "3",
-        status: "danger",
-        Name: "gangul"
+    for (var i = 0; i < 10; i++) {
+        db.save({
+            slotNo: i,
+            status: "free",
+            Name: "nobody"
+        }
+        );
     }
-    );
     res.end("saved");
 
+});
+
+router.post('/update', function (req, res, next) {
+    console.log(req.body)
+    ds = {
+        Name: req.body.Name,
+        status: req.body.status
+    }
+    console.log(ds);
+    db.update(req.body.id, ds);
+    res.send("updated");
 });
 
 module.exports = router;

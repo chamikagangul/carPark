@@ -16,10 +16,8 @@ var CarPark = mongoose.model('slot', bluePrint);
 var urlEncodedParser = bodyPaser.urlencoded({ extended: false });
 
 var read = (search = {},callBack) => {
-    console.log("inside read");
     CarPark.find(search, function (err, data) {
         if (err) throw err;
-        console.log(data);
         callBack(data)
     });
 }
@@ -37,14 +35,11 @@ var del = (slotNo) => {
         res.json(data);
     });
 }
-var update = (slot) => {
-    console.log(slot)
+var update = (slot,data) => {
+    console.log(data)
     var myquery = { slotNo: slot };
     var newvalues = {
-        $set: {
-            status: "Free",
-            Name: "gangul"
-        }
+        $set: data
     };
     CarPark.updateOne(myquery, newvalues, function (err, res) {
         if (err) throw err;
