@@ -5,24 +5,25 @@ function sound(src) {
     this.sound.setAttribute("controls", "none");
     this.sound.style.display = "none";
     document.body.appendChild(this.sound);
-    this.play = function(){
-      this.sound.play();
+    this.play = function () {
+        this.sound.play();
     }
-    this.stop = function(){
-      this.sound.pause();
+    this.stop = function () {
+        this.sound.pause();
     }
-  }
+}
 
 
 $(document).ready(function () {
 
     mySound = new sound("../sounds/notify.mp3");
-    
+
 
     socket = io();
     socket.on('io-update-page', (data) => {
-        loadSlots();
-        mySound.play();
+        player = document.getElementById('player');
+        player.src = '../sounds/notify.mp3';
+        player.play()
     });
 
     loadSlots();
