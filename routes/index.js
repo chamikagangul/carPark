@@ -8,7 +8,6 @@ var db = require('../model/db');
 /* GET home page. */
 
 router.get('/', function (req, res, next) {
-  db.update("1");
   res.render('index', { title: 'Car Park management System' });
 });
 

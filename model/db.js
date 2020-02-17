@@ -15,11 +15,12 @@ var CarPark = mongoose.model('slot', bluePrint);
 //var data = [{ item: 'get milk' }, { item: 'walk dog' }, { item: 'some coding' }]
 var urlEncodedParser = bodyPaser.urlencoded({ extended: false });
 
-var read = (search = {}) => {
+var read = (search = {},callBack) => {
     console.log("inside read");
     CarPark.find(search, function (err, data) {
         if (err) throw err;
         console.log(data);
+        callBack(data)
     });
 }
 
