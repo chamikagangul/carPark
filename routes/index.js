@@ -8,12 +8,8 @@ var db = require('../model/db');
 /* GET home page. */
 
 router.get('/', function (req, res, next) {
-  db.save({
-    slotNo: "1",
-    status: "Free",
-    Name : "Chamika"
-  });
-  res.render('index', { title: 'Express' });
+  db.update("1");
+  res.render('index', { title: 'Car Park management System' });
 });
 
 module.exports = router;

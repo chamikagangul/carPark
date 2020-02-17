@@ -6,7 +6,7 @@ mongoose.connect('mongodb+srv://chamika:123qwe@cluster0-yxcdg.mongodb.net/carPar
 var bluePrint = new mongoose.Schema({
     slotNo: String,
     status: String,
-    Name : String
+    Name: String
 });
 
 var CarPark = mongoose.model('slot', bluePrint);
@@ -30,13 +30,28 @@ var save = (DATA) => {
     });
 }
 
-var del = (slotNo) =>{
-    CarPark.find({id: slotNo.replace(/\-/g," ")}).remove(function(err,data){
-        if(err) throw err;
+var del = (slotNo) => {
+    CarPark.find({ id: slotNo.replace(/\-/g, " ") }).remove(function (err, data) {
+        if (err) throw err;
         res.json(data);
+    });
+}
+var update = (slot) => {
+    console.log(slot)
+    var myquery = { slotNo: slot };
+    var newvalues = {
+        $set: {
+            status: "Free",
+            Name: "gangul"
+        }
+    };
+    CarPark.updateOne(myquery, newvalues, function (err, res) {
+        if (err) throw err;
+        console.log("1 document updated");
     });
 }
 
 module.exports.save = save;
 module.exports.read = read;
 module.exports.delete = del;
+module.exports.update = update;
