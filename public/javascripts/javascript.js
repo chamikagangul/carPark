@@ -21,14 +21,17 @@ $(document).ready(function () {
 
     socket = io();
     socket.on('io-update-page', (data) => {
-        player = document.getElementById('player');
-        player.src = '../sounds/notify.mp3';
-        player.play()
+        loadSlots();
+        
     });
 
     loadSlots();
     $(document).on('click', '.cardButton', function () {
         
+        player = document.getElementById('player');
+        player.src = '../sounds/notify.mp3';
+        player.play()
+
         t = (this.id)
         $('#' + t + "card").removeClass("bg-primary");
         $('#' + t + "card").addClass("bg-success");
