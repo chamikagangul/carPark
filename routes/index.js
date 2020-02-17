@@ -8,11 +8,9 @@ var db = require('../model/db');
 /* GET home page. */
 
 router.get('/', function (req, res, next) {
+  db.save({});
   res.render('index', { title: 'Express' });
 });
-
-
-
 
 module.exports = router;
 
