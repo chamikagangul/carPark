@@ -15,9 +15,9 @@ router.get('/save', function (req, res, next) {
         db.save({
             slotNo: i,
             status: "free",
-            Name: "nobody"
-        }
-        );
+            Name: "nobody",
+            pin : "12"
+        });
     }
     res.end("saved");
 

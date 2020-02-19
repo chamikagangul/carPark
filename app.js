@@ -9,7 +9,6 @@ var session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cardsRouter = require('./routes/cards');
-var loginRouter = require('./routes/login');
 
 var app = express();
 

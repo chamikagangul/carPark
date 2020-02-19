@@ -6,7 +6,8 @@ mongoose.connect('mongodb+srv://chamika:123qwe@cluster0-yxcdg.mongodb.net/carPar
 var bluePrint = new mongoose.Schema({
     slotNo: String,
     status: String,
-    Name: String
+    Name: String,
+    pin : String
 });
 
 var CarPark = mongoose.model('slot', bluePrint);
@@ -36,7 +37,6 @@ var del = (slotNo) => {
     });
 }
 var update = (slot,data) => {
-    console.log(data)
     var myquery = { slotNo: slot };
     var newvalues = {
         $set: data
