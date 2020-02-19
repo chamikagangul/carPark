@@ -5,7 +5,7 @@ var db = require('../model/db');
 exports.chat = function (io) {
   io.on('connection', function (socket) {
 
-
+    console.log("User connected");
     socket.on('io-join', function (id) {
       socket.join(String(id));
     });
@@ -26,31 +26,48 @@ exports.chat = function (io) {
       socket.emit('io-redirect', "slot");
     });
 
-
     socket.on('io-carPark-park', function (data) {
       console.log("slot : " + data);
       io.to(data).emit('io-park', data);
+      db.read({ slotNo: data }, (slotdata) => {
+        console.log(slotdata[0].status);
+        ds = {}
+        if (slotdata[0].status == "free") {
+          ds = {
+            status: "danger",
+          }
+        } else if (slotdata[0].status == "waiting") {
+          ds = {
+            status: "reserved",
+          }
+        }
+        db.update(data, ds);
+        console.log("updated");
+        io.emit('io-update-page', "update the page");
+      });
 
-      ds = {
-        status: "reserved",
-      }
-
-      db.update(data, ds);
-      console.log("updated");
-      io.emit('io-update-page', "update the page");
 
     });
 
     socket.on('io-carPark-remove', function (data) {
       console.log("slot : " + data);
       io.to(data).emit('io-remove', data);
-      ds = {
-        status: "danger",
-      }
-
-      db.update(data, ds);
-      console.log("updated");
-      io.emit('io-update-page', "update the page");
+      db.read({ slotNo: data }, (slotdata) => {
+        console.log(slotdata[0].status);
+        ds = {}
+        if (slotdata[0].status == "free") {
+          ds = {
+            status: "danger",
+          }
+        } else if (slotdata[0].status == "waiting") {
+          ds = {
+            status: "reserved",
+          }
+        }
+        db.update(data, ds);
+        console.log("updated");
+        io.emit('io-update-page', "update the page");
+      });
     });
 
     socket.on('io-login', function (data) {
@@ -58,13 +75,13 @@ exports.chat = function (io) {
       db.read(data, (slot) => {
         if (slot[0]) {
           socket.join(String(slot[0].slotNo));
-          console.log("slot : "+slot[0].slotNo);
+          console.log("slot : " + slot[0].slotNo);
         } socket.emit('io-card', slot);
 
       });
       //io.to(data).emit('io-test', data);
     });
-  
+
 
     socket.on('io-remove', function (data) {
       console.log(data);
