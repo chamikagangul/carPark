@@ -31,6 +31,11 @@ router.get('/sampath', function (req, res, next) {
   console.log(req.body);
 });
 
+router.post('/sampath', function (req, res, next) {
+  res.end(JSON.stringify(req.body));
+  console.log(req.body);
+});
+
 
 
 module.exports = router;
