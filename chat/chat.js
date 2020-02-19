@@ -23,13 +23,34 @@ exports.chat = function (io) {
       db.update(msg.data.id, ds);
       console.log("updated");
       io.emit('io-update-page', "update the page");
-      io.emit('io-redirect', "slot");
+      socket.emit('io-redirect', "slot");
     });
 
 
-    socket.on('test', function (data) {
+    socket.on('io-carPark-park', function (data) {
       console.log("slot : " + data);
-      io.to(data).emit('io-test', data);
+      io.to(data).emit('io-park', data);
+
+      ds = {
+        status: "reserved",
+      }
+
+      db.update(data, ds);
+      console.log("updated");
+      io.emit('io-update-page', "update the page");
+
+    });
+
+    socket.on('io-carPark-remove', function (data) {
+      console.log("slot : " + data);
+      io.to(data).emit('io-remove', data);
+      ds = {
+        status: "danger",
+      }
+
+      db.update(data, ds);
+      console.log("updated");
+      io.emit('io-update-page', "update the page");
     });
 
     socket.on('io-login', function (data) {

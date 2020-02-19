@@ -33,4 +33,15 @@
         <button type="button" class="btn btn-dark cardButton" id=<%=e.slotNo%> disabled>Park Here</button>
     </div>
 </div>
+<%}else if(e.status=="waiting"){%>
+
+<div class="card text-white bg-warning mt-2" style="max-width: 18rem; margin: auto;" id=<%=e.slotNo%>card>
+    <div class="card-header">
+        <h3>Slot <%=e.slotNo%></h3>
+    </div>
+    <div class="card-body">
+        <p class="card-text">Someone is going to park here</p>
+        <button type="button" class="btn btn-dark cardButton" id=<%=e.slotNo%> disabled>Park Here</button>
+    </div>
+</div>
 <% }}); %>

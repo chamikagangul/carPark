@@ -21,10 +21,10 @@ $(document).ready(function () {
 
     socket = io();
     socket.on('io-update-page', (data) => {
-        loadSlots();
         player = document.getElementById('player');
         player.src = '../sounds/notify.mp3';
         player.play();
+        loadSlots();
 
     });
     socket.on('io-redirect', (data) => {
@@ -46,7 +46,7 @@ $(document).ready(function () {
             data: {
                 id: t,
                 Name: 'chamika',
-                status: 'reserved',
+                status: 'waiting',
                 pin:$('#pin'+t).val()
             }
         });

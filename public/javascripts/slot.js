@@ -15,13 +15,23 @@ $(document).ready(function () {
     var ID;
     socket = io();
 
-    socket.on("io-test",(data)=>{
-        alert(data);
-    })
+    socket.on("io-park",(data)=>{
+        $( "#cardi" ).removeClass( "bg-warning" );
+        $( "#cardi" ).removeClass( "bg-danger" );
+
+        $( "#cardi" ).addClass( "bg-success" );
+    });
+
+    socket.on("io-remove",(data)=>{
+        $( "#cardi" ).removeClass( "bg-success" );
+        $( "#cardi" ).removeClass( "bg-warning" );
+
+        $( "#cardi" ).addClass( "bg-danger" );
+    });
 
     socket.on("io-card", (data) => {
         if (1) {
-            $('#card').html(`<div class="card text-white bg-success mt-2" style="max-width: 18rem; margin: auto;" >
+            $('#card').html(`<div class="card text-white bg-warning mt-2" id='cardi' style="max-width: 18rem; margin: auto;" >
         <div class="card-header">
             <h3>Slot `+ data[0].slotNo + `</h3>
         </div>
