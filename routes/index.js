@@ -27,7 +27,7 @@ router.get('/test', function (req, res, next) {
 });
 
 router.get('/sampath', function (req, res, next) {
-  res.end("data awoooooo");
+  res.end(req.body);
   console.log(req.body);
 });
 
