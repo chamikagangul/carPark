@@ -26,5 +26,11 @@ router.get('/test', function (req, res, next) {
   res.render('test', { title: 'test', slot: "free" });
 });
 
+router.get('/sampath', function (req, res, next) {
+  console.log(req.body);
+});
+
+
+
 module.exports = router;
 

@@ -3,6 +3,10 @@ var router = express.Router();
 var db = require('../model/db');
 
 exports.chat = function (io) {
+
+  io.on("test",(data)=>{
+    console.log("testing");
+  })
   io.on('connection', function (socket) {
 
     console.log("User connected");
