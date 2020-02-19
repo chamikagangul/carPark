@@ -47,7 +47,11 @@ var update = (slot,data) => {
     });
 }
 
+
+
 module.exports.save = save;
 module.exports.read = read;
 module.exports.delete = del;
 module.exports.update = update;
+
+
