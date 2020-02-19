@@ -27,12 +27,13 @@ router.get('/test', function (req, res, next) {
 });
 
 router.get('/sampath', function (req, res, next) {
-  res.end(JSON.stringify(req.body));
+  res.json(req.body)
   console.log(req.body);
 });
 
 router.post('/sampath', function (req, res, next) {
-  res.end(JSON.stringify(req.body));
+  //res.end(JSON.stringify(req.body));
+  res.json(req.body)
   console.log(req.body);
 });
 
