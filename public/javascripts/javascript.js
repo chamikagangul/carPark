@@ -22,36 +22,34 @@ $(document).ready(function () {
     socket = io();
     socket.on('io-update-page', (data) => {
         loadSlots();
-        
+        player = document.getElementById('player');
+        player.src = '../sounds/notify.mp3';
+        player.play();
+
     });
+    socket.on('io-redirect', (data) => {
+        window.location = "/slot"; 
+    });
+    socket.on('io-test', (data) => {
+        alert(data); 
+    });
+
+
 
     loadSlots();
     $(document).on('click', '.cardButton', function () {
-        
-        player = document.getElementById('player');
-        player.src = '../sounds/notify.mp3';
-        player.play()
-
         t = (this.id)
         $('#' + t + "card").removeClass("bg-primary");
         $('#' + t + "card").addClass("bg-success");
-        $.ajax({
-            type: 'POST',
-            url: '/cards/update',
+        socket.emit('io-reserve', {
+            msg: "updating all clients",
             data: {
                 id: t,
                 Name: 'chamika',
-                status: 'reserved'
-
-            },
-            dataType: 'html',
-            success: function (data) {
-                socket.emit('io-update', "updating all clients");
-
+                status: 'reserved',
+                pin:$('#pin'+t).val()
             }
         });
-
-
     });
 
 });

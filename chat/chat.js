@@ -43,6 +43,7 @@ exports.chat = function (io) {
       });
       //io.to(data).emit('io-test', data);
     });
+  
 
     socket.on('io-remove', function (data) {
       console.log(data);
