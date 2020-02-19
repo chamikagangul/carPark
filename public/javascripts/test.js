@@ -8,6 +8,9 @@ $(document).ready(function () {
     $('#btn2').click(function(){
         socket.emit('io-carPark-remove',$('#data2').val());
     });
+    socket.on("test",(data)=>{
+        alert(data);
+    });
 });
 
 
