@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var db = require('../model/db');
 
+
 //socket IO
 
 
@@ -36,11 +37,14 @@ router.get('/sampath', function (req, res, next) {
 
 router.post('/sampath', function (req, res, next) {
   //res.end(JSON.stringify(req.body));
-  console.log(JSON.stringify(req.body));
-  res.json(req.body)
-  
+  console.log(JSON.parse(req.body));
+  res.json(JSON.parse(req.body));
 
 });
+
+
+
+
 
 
 
