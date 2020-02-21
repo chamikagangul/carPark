@@ -4,7 +4,7 @@ var db = require('../model/db');
 
 exports.chat = function (io) {
 
-  io.on("test",(data)=>{
+  io.on("test", (data) => {
     console.log("testing");
   })
   io.on('connection', function (socket) {
@@ -28,50 +28,6 @@ exports.chat = function (io) {
       console.log("updated");
       io.emit('io-update-page', "update the page");
       socket.emit('io-redirect', "slot");
-    });
-
-    socket.on('io-carPark-park', function (data) {
-      console.log("slot : " + data);
-      io.to(data).emit('io-park', data);
-      db.read({ slotNo: data }, (slotdata) => {
-        console.log(slotdata[0].status);
-        ds = {}
-        if (slotdata[0].status == "free") {
-          ds = {
-            status: "danger",
-          }
-        } else if (slotdata[0].status == "waiting") {
-          ds = {
-            status: "reserved",
-          }
-        }
-        db.update(data, ds);
-        console.log("updated");
-        io.emit('io-update-page', "update the page");
-      });
-
-
-    });
-
-    socket.on('io-carPark-remove', function (data) {
-      console.log("slot : " + data);
-      io.to(data).emit('io-remove', data);
-      db.read({ slotNo: data }, (slotdata) => {
-        console.log(slotdata[0].status);
-        ds = {}
-        if (slotdata[0].status == "free") {
-          ds = {
-            status: "danger",
-          }
-        } else if (slotdata[0].status == "waiting") {
-          ds = {
-            status: "reserved",
-          }
-        }
-        db.update(data, ds);
-        console.log("updated");
-        io.emit('io-update-page', "update the page");
-      });
     });
 
     socket.on('io-login', function (data) {
@@ -101,4 +57,55 @@ exports.chat = function (io) {
 
 
   });
+}
+
+exports.updateCarPark = (io, data) => {
+  console.log(data.status);
+  if (data.status== "1") {
+    console.log("slot : " + data.slotNo);
+    io.to(data.slotNo).emit('io-park', data.slotNo);
+    db.read({ slotNo: data.slotNo }, (slotdata) => {
+      console.log(slotdata[0].status);
+      ds = {}
+      if (slotdata[0].status == "free") {
+        ds = {
+          status: "danger",
+        }
+      } else if (slotdata[0].status == "waiting") {
+        ds = {
+          status: "reserved",
+        }
+      }else if (slotdata[0].status == "danger") {
+        ds = {
+          status: "reserved",
+        }
+      }
+      db.update(data.slotNo, ds);
+      console.log("updated");
+      io.emit('io-update-page', "update the page");
+    });
+  } else if(data.status== "0"){
+    console.log("slot : " + data.slotNo);
+    io.to(data.slotNo).emit('io-remove', data.slotNo);
+    db.read({ slotNo: data.slotNo }, (slotdata) => {
+      console.log(slotdata[0].status);
+      ds = {}
+      if (slotdata[0].status == "reserved") {
+        ds = {
+          status: "danger",
+        }
+      } else if (slotdata[0].status == "free") {
+        ds = {
+          status: "free",
+        }
+      }else if (slotdata[0].status == "free") {
+        ds = {
+          status: "free",
+        }
+      }
+      db.update(data.slotNo, ds);
+      console.log("updated");
+      io.emit('io-update-page', "update the page");
+    });
+  }
 }

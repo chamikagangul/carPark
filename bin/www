@@ -12,6 +12,8 @@ var http = require('http');
 var express = require('express');
 var router = express.Router();
 
+var events = require('events');
+var carPark = new events.EventEmitter();
 
 /**
  * Get port from environment and store in Express.
@@ -35,8 +37,8 @@ var io = require('socket.io')(server);
 
 chat.chat(io);
 
-app.get("/sampath",(req,res)=>{
-  io.emit("test","req.body.");
+app.post("/sampath",(req,res)=>{
+  chat.updateCarPark(io,req.body);
 });
 
 // catch 404 and forward to error handler
