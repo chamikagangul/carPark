@@ -25,8 +25,8 @@ $(document).ready(function () {
         player.src = '../sounds/notify.mp3';
         player.play();
         loadSlots();
-
     });
+    
     socket.on('io-redirect', (data) => {
         window.location = "/slot"; 
     });
@@ -51,8 +51,6 @@ $(document).ready(function () {
             }
         });
     });
-    
-
 });
 
 function loadSlots() {

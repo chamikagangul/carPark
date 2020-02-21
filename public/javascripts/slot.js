@@ -12,6 +12,7 @@ function field_blur(field, email) {
 
 //Fade in dashboard box
 $(document).ready(function () {
+    mySound = new sound("../sounds/notify.mp3");
     var ID;
     socket = io();
 
@@ -20,6 +21,7 @@ $(document).ready(function () {
         $( "#cardi" ).removeClass( "bg-danger" );
 
         $( "#cardi" ).addClass( "bg-success" );
+        mySound.play();
     });
 
     socket.on("io-remove",(data)=>{
@@ -27,6 +29,7 @@ $(document).ready(function () {
         $( "#cardi" ).removeClass( "bg-warning" );
 
         $( "#cardi" ).addClass( "bg-danger" );
+        mySound.play();
     });
 
     socket.on("io-card", (data) => {
@@ -55,5 +58,21 @@ $(document).ready(function () {
 
     
 });
+
+
+function sound(src) {
+    this.sound = document.createElement("audio");
+    this.sound.src = src;
+    this.sound.setAttribute("preload", "auto");
+    this.sound.setAttribute("controls", "none");
+    this.sound.style.display = "none";
+    document.body.appendChild(this.sound);
+    this.play = function () {
+        this.sound.play();
+    }
+    this.stop = function () {
+        this.sound.pause();
+    }
+}
 
 //Stop click event
