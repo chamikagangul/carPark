@@ -51,20 +51,7 @@ $(document).ready(function () {
             }
         });
     });
-    $(document).on('click', '.clearButton', function () {
-        t = (this.id)
-        $('#' + t + "card").removeClass("bg-primary");
-        $('#' + t + "card").addClass("bg-success");
-        socket.emit('io-clear', {
-            msg: "updating all clients",
-            data: {
-                id: t,
-                Name: 'chamika',
-                status: 'waiting',
-                pin:$('#pin'+t).val()
-            }
-        });
-    });
+    
 
 });
 
@@ -72,11 +59,11 @@ function loadSlots() {
 
     $.ajax({
         type: 'GET',
-        url: '/cards',
+        url: '/cards/free',
         data: {},
         dataType: 'html',
         success: function (data) {
-            $("#slotContainer").html(data);
+            $("#freeCards").html(data);
         }
     });
 }

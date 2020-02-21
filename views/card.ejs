@@ -19,7 +19,7 @@
     </div>
     <div class="card-body">
         <p class="card-text">Something went wrong</p>
-        <button type="button" class="btn btn-dark cardButton" id=<%=e.slotNo%> >Clear</button>
+        <button type="button" class="btn btn-dark clearButton" id=<%=e.slotNo%> >Clear</button>
     </div>
 </div>
 <%}else if(e.status=="reserved"){%>
@@ -30,7 +30,7 @@
     </div>
     <div class="card-body">
         <p class="card-text">Someone Parked here</p>
-        <button type="button" class="btn btn-dark cardButton" id=<%=e.slotNo%> >Clear</button>
+        <button type="button" class="btn btn-dark clearButton" id=<%=e.slotNo%> >Clear</button>
     </div>
 </div>
 <%}else if(e.status=="waiting"){%>
@@ -41,7 +41,7 @@
     </div>
     <div class="card-body">
         <p class="card-text">Someone is going to park here</p>
-        <button type="button" class="btn btn-dark cardButton" id=<%=e.slotNo%> >Clear</button>
+        <button type="button" class="btn btn-dark clearButton" id=<%=e.slotNo%> >Clear</button>
     </div>
 </div>
 <% }}); %>

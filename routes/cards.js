@@ -10,6 +10,15 @@ router.get('/', function (req, res, next) {
     );
 });
 
+router.get('/free', function (req, res, next) {
+    console.log("free cards");
+    db.read(search = {status:"free"},
+        function (data) {
+            res.render('card', { data });
+        }
+    );
+});
+
 router.get('/save', function (req, res, next) {
     for (var i = 0; i < 10; i++) {
         db.save({

@@ -38,6 +38,7 @@ var io = require('socket.io')(server);
 chat.chat(io);
 
 app.post("/sampath",(req,res)=>{
+  res.send(req.body);
   chat.updateCarPark(io,req.body);
 });
 

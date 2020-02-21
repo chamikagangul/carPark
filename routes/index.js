@@ -7,6 +7,9 @@ var db = require('../model/db');
 
 /* GET home page. */
 
+router.get('/admin', function (req, res, next) {
+  res.render('controlPanel', { title: 'Car Park management System' });
+});
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Car Park management System' });
 });

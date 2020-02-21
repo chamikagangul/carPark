@@ -15,7 +15,7 @@ exports.chat = function (io) {
     });
 
 
-    socket.on('io-reserve', function (msg) {
+    socket.on('io-reserve', async function (msg) {
       socket.join(String(msg.data.id));
       console.log(msg);
       ds = {
@@ -24,10 +24,23 @@ exports.chat = function (io) {
         pin: msg.data.pin
       }
 
-      db.update(msg.data.id, ds);
+      await db.update(msg.data.id, ds);
       console.log("updated");
       io.emit('io-update-page', "update the page");
       socket.emit('io-redirect', "slot");
+    });
+
+    socket.on('io-clear', function (msg) {
+      console.log(msg);
+      ds = {
+        Name: "",
+        status: "free",
+        pin: ""
+      }
+
+      db.update(msg.data.id, ds);
+      console.log("updated");
+      io.emit('io-update-page', "update the page");
     });
 
     socket.on('io-login', function (data) {
