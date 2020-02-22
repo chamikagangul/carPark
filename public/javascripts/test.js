@@ -36,7 +36,7 @@ $(document).ready(function () {
 let log = console.log;
 
 const webNotificationApp = (debug = false) => {
-    
+    alert();
     try {
         if ("Notification" in window) {
             // let ask = window.Notification.requestPermission();
