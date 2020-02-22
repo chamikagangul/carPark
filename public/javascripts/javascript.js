@@ -15,7 +15,10 @@ function sound(src) {
 
 
 $(document).ready(function () {
-
+    if('serviceWorker' in navigator){
+        alert();
+        send();
+    }
     mySound = new sound("../sounds/notify.mp3");
 
 
@@ -79,7 +82,18 @@ function loadSlots() {
             $("#slotContainer").html(data);
         }
     });
+
 }
+
+async function send(){
+    console.log('register sevice worker....');
+    const register = await navigator.serviceWorker.register('/javascript/worker.js',{
+        scope : '/',
+    });
+    console.log('service worker registered');
+}
+
+
 
 
 
