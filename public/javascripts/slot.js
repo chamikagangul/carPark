@@ -29,8 +29,8 @@ $(document).ready(function () {
         $( "#cardi" ).removeClass( "bg-warning" );
 
         $( "#cardi" ).addClass( "bg-danger" );
-        alert("Something went wrong ...........");
         mySound.play();
+        alert("Something went wrong ...........");
     });
 
     socket.on("io-card", (data) => {
