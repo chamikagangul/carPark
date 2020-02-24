@@ -80,7 +80,7 @@ exports.updateCarPark = (io, data) => {
     db.read({ slotNo: data.slotNo }, (slotdata) => {
       console.log(slotdata[0].status);
       ds = {}
-      if (slotdata[0].status == "free") {
+      if (slotdata[0].status == "1") {
         ds = {
           status: "danger",
         }

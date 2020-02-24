@@ -16,21 +16,33 @@ $(document).ready(function () {
     var ID;
     socket = io();
 
-    socket.on("io-park",(data)=>{
-        $( "#cardi" ).removeClass( "bg-warning" );
-        $( "#cardi" ).removeClass( "bg-danger" );
+    socket.on("io-park", (data) => {
+        $("#cardi").removeClass("bg-warning");
+        $("#cardi").removeClass("bg-danger");
 
-        $( "#cardi" ).addClass( "bg-success" );
+        $("#cardi").addClass("bg-success");
         mySound.play();
     });
 
-    socket.on("io-remove",(data)=>{
-        $( "#cardi" ).removeClass( "bg-success" );
-        $( "#cardi" ).removeClass( "bg-warning" );
+    socket.on("io-remove", (data) => {
+        $("#cardi").removeClass("bg-success");
+        $("#cardi").removeClass("bg-warning");
 
-        $( "#cardi" ).addClass( "bg-danger" );
+        $("#cardi").addClass("bg-danger");
         mySound.play();
-        alert("Something went wrong ...........");
+        $.confirm({
+            title: 'Confirm!',
+            content: 'Did You removed your vehicle?',
+            buttons: {
+                Yes: function () {
+                    $.alert('Ok :)');
+                },
+                No: function () {
+                    httpGet("http://10.10.19.40:1880/node2?alarm=1");
+                    $.alert('Alrm sent');
+                },
+            }
+        });
     });
 
     socket.on("io-card", (data) => {
@@ -45,19 +57,16 @@ $(document).ready(function () {
         </div>
         </div>`);
         }
-        ID = data[0].slotNo ;
+        ID = data[0].slotNo;
     });
     $('.box').hide().fadeIn(1000);
     $('#login').click(function (event) {
         //request card
         socket.emit('io-login', { slotNo: $('#slot').val(), pin: $('#pin').val() });
     });
-    $(document).on('click','#remove',function() {
-        socket.emit('io-remove', { id : ID });
-
+    $(document).on('click', '#remove', function () {
+        socket.emit('io-remove', { id: ID });
     });
-
-    
 });
 
 
@@ -74,6 +83,13 @@ function sound(src) {
     this.stop = function () {
         this.sound.pause();
     }
+}
+
+function httpGet(theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", theUrl, false); // false for synchronous request
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
 }
 
 //Stop click event
