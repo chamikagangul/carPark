@@ -75,6 +75,8 @@ $(document).ready(function () {
     });
     $(document).on('click', '#remove', function () {
         socket.emit('io-remove', { id: ID });
+        //redirect
+        window.location.replace("/");
     });
 });
 
