@@ -25,24 +25,33 @@ $(document).ready(function () {
     });
 
     socket.on("io-remove", (data) => {
+        var box;
         $("#cardi").removeClass("bg-success");
         $("#cardi").removeClass("bg-warning");
 
         $("#cardi").addClass("bg-danger");
         mySound.play();
-        $.confirm({
+        var confirm = $.confirm({
             title: 'Confirm!',
             content: 'Did You removed your vehicle?',
             buttons: {
                 Yes: function () {
+                    clearTimeout(box);
                     $.alert('Ok :)');
                 },
                 No: function () {
+                    console.log("No");
                     httpGet("https://car-park.mybluemix.net/alarm?alarm=1");
                     $.alert('Alarm sent');
                 },
             }
         });
+        confirm.open();
+        box = setTimeout(function() { 
+            confirm.close(); 
+            httpGet("https://car-park.mybluemix.net/alarm?alarm=1");
+            $.alert('Timeout - Alarm sent');
+        }, 10000);
     });
 
     socket.on("io-card", (data) => {
@@ -86,10 +95,10 @@ function sound(src) {
 }
 
 function httpGet(theUrl) {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", theUrl, false); // false for synchronous request
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
+    data =  {};
+    $.get(theUrl, function(data, status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });
 }
 
 //Stop click event
