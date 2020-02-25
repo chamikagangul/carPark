@@ -74,30 +74,39 @@ exports.chat = function (io) {
 
 exports.updateCarPark = (io, data) => {
   console.log(data.status);
-  if (data.status== "1") {
+
+  if (data.status == "1") {
     console.log("slot : " + data.slotNo);
     io.to(data.slotNo).emit('io-park', data.slotNo);
     db.read({ slotNo: data.slotNo }, (slotdata) => {
       console.log(slotdata[0].status);
       ds = {}
-      if (slotdata[0].status == "1") {
+      if (slotdata[0].status == "free") {
         ds = {
           status: "danger",
         }
+        db.update(data.slotNo, ds);
+        console.log("updated");
+        io.emit('io-update-page', "update the page");
       } else if (slotdata[0].status == "waiting") {
         ds = {
           status: "reserved",
         }
-      }else if (slotdata[0].status == "danger") {
+        db.update(data.slotNo, ds);
+        console.log("updated");
+        io.emit('io-update-page', "update the page");
+      } else if (slotdata[0].status == "danger") {
+        ds = {
+          status: "danger",
+        }
+      } else if (slotdata[0].status == "reserved") {
         ds = {
           status: "reserved",
         }
       }
-      db.update(data.slotNo, ds);
-      console.log("updated");
-      io.emit('io-update-page', "update the page");
+
     });
-  } else if(data.status== "0"){
+  } else if (data.status == "0") {
     console.log("slot : " + data.slotNo);
     io.to(data.slotNo).emit('io-remove', data.slotNo);
     db.read({ slotNo: data.slotNo }, (slotdata) => {
@@ -107,18 +116,23 @@ exports.updateCarPark = (io, data) => {
         ds = {
           status: "danger",
         }
+        db.update(data.slotNo, ds);
+        console.log("updated");
+        io.emit('io-update-page', "update the page");
       } else if (slotdata[0].status == "free") {
         ds = {
           status: "free",
         }
-      }else if (slotdata[0].status == "free") {
+      } else if (slotdata[0].status == "danger") {
         ds = {
-          status: "free",
+          status: "danger",
+        }
+      } else if (slotdata[0].status == "waiting") {
+        ds = {
+          status: "waiting",
         }
       }
-      db.update(data.slotNo, ds);
-      console.log("updated");
-      io.emit('io-update-page', "update the page");
+
     });
   }
 }

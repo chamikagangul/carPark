@@ -15,10 +15,7 @@ function sound(src) {
 
 
 $(document).ready(function () {
-    if('serviceWorker' in navigator){
-        alert();
-        send();
-    }
+    
     mySound = new sound("../sounds/notify.mp3");
 
 
@@ -28,7 +25,6 @@ $(document).ready(function () {
         player.src = '../sounds/notify.mp3';
         player.play();
         loadSlots();
-
     });
     socket.on('io-redirect', (data) => {
         window.location = "/slot"; 
@@ -85,13 +81,7 @@ function loadSlots() {
 
 }
 
-async function send(){
-    console.log('register sevice worker....');
-    const register = await navigator.serviceWorker.register('/javascript/worker.js',{
-        scope : '/',
-    });
-    console.log('service worker registered');
-}
+
 
 
 

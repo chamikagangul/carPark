@@ -38,7 +38,7 @@ $(document).ready(function () {
                     $.alert('Ok :)');
                 },
                 No: function () {
-                    httpGet("http://car-park.mybluemix.net/alarm?alarm=1");
+                    httpGet("https://car-park.mybluemix.net/alarm?alarm=1");
                     $.alert('Alarm sent');
                 },
             }
