@@ -38,8 +38,8 @@ $(document).ready(function () {
                     $.alert('Ok :)');
                 },
                 No: function () {
-                    httpGet("http://10.10.19.40:1880/node2?alarm=1");
-                    $.alert('Alrm sent');
+                    httpGet("http://car-park.mybluemix.net/alarm?alarm=1");
+                    $.alert('Alarm sent');
                 },
             }
         });
