@@ -40,6 +40,7 @@ $(document).ready(function () {
                     $.alert('Ok :)');
                 },
                 No: function () {
+                    clearTimeout(box);
                     console.log("No");
                     httpGet("https://car-park.mybluemix.net/alarm?alarm=1");
                     $.alert('Alarm sent');
@@ -61,7 +62,7 @@ $(document).ready(function () {
             <h3>Slot `+ data[0].slotNo + `</h3>
         </div>
         <div class="card-body">
-            <p class="card-text">`+ data[0].Name + ` Parked here</p>
+            <p class="card-text">please park your car here</p>
             <button type="button" class="btn btn-dark cardButton" id='remove'>Remove</button>
         </div>
         </div>`);

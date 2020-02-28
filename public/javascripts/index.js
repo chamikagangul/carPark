@@ -45,7 +45,7 @@ $(document).ready(function () {
             msg: "updating all clients",
             data: {
                 id: t,
-                Name: 'chamika',
+                Name: '',
                 status: 'waiting',
                 pin:$('#pin'+t).val()
             }
